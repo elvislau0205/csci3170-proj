@@ -20,7 +20,8 @@ public class SalespersonFunctions {
 
     public void SearchParts(){
         boolean error = false;
-        String sql1 = "select P.pID, P.pName, M.mName, C.cName, P.pAvailableQuantity, P.pWarrantyPeriod, P.pPrice from part P, manufacturer M, category C where P.cID = C.cID and P.mID = M.mID ";
+        String sql1 = "select pID, pName, mName, cName, pAvailableQuantity, pWarrantyPeriod, pPrice from part, manufacturer, category ";
+        sql1 += "where part.cID = category.cID and part.mID = manufacturer.mID ";
         System.out.println("Choose the search criterion:");
         System.out.println("1. Part Name");
         System.out.println("2. Manufacturer Name");
@@ -30,10 +31,10 @@ public class SalespersonFunctions {
         keyboard.nextLine();
         switch (option) {
 			case 1:
-				sql1 += "and P.pName = \"";
+				sql1 += "and pName = \"";
 				break;
 			case 2:
-                sql1 += "and M.mName = \"";
+                sql1 += "and mName = \"";
 				break;
 			default:
 				System.out.println("Invalid Choice! Please try again with a valid choice!\n");
@@ -50,7 +51,7 @@ public class SalespersonFunctions {
             System.out.println("2. By price, descending order");
             System.out.print("Choose the search criterion:");
             int  ordering = keyboard.nextInt();
-            sql1 += "order by P.pPrice ";
+            sql1 += "order by pPrice ";
             switch (ordering) {
                 case 1:
                     sql1 += "ASC";
