@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.Date;
 
 import java.io.File;
@@ -264,7 +265,11 @@ public class AdministratorFunctions {
 								System.out.print("| " + rs.getString(colName) + ' ');
 								break;
 							case "DATE":
-								System.out.print("| " + rs.getDate(colName) + ' ');
+								java.sql.Date sqlDate = rs.getDate(colName);
+								java.util.Date utilDate = new java.util.Date(sqlDate.getTime());
+								DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+								final String stringDate = dateFormat.format(utilDate);
+								System.out.print("| " + stringDate + ' ');
 						}
 					}
 					System.out.println('|');
@@ -294,10 +299,10 @@ public class AdministratorFunctions {
 			switch (option) {
 			case 1:
 				CreateTables();
-				break;
+				return;
 			case 2:
 				DeleteTables();
-				break;
+				return;
 			case 3:
 				System.out.print("\nType in the Source Data Folder Path: ");
 				String path = keyboard.nextLine();
@@ -306,7 +311,7 @@ public class AdministratorFunctions {
 				} catch (IOException e) {
 					System.out.println(e.getMessage());
 				}
-				break;
+				return;
 			case 4:
 				System.out.print("\nWhich table would you like to show: ");
 				String table = keyboard.nextLine();
@@ -315,7 +320,7 @@ public class AdministratorFunctions {
 				} catch (IOException e) {
 					System.out.println(e.getMessage());
 				}
-				break;
+				return;
 			case 5:
 				System.out.print("\n");
 				return;
